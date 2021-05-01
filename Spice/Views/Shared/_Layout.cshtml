@@ -1,0 +1,110 @@
+﻿@using Microsoft.AspNetCore.Http
+@inject IHttpContextAccessor HttpContextAccessor
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Spice</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.1/css/all.css" integrity="sha384-vp86vTRFVJgpjF9jiIGPEEqYqlDwgyBgEF109VFjmqGmIY/Y4HV4d3Gp2irVfcrp" crossorigin="anonymous">
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/timepicker/1.3.5/jquery.timepicker.css">
+
+</head>
+<body class="webBachgroud">
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="Custamr" asp-controller="Home" asp-action="Index">
+                    <img src="~/Images/alaaaaaa.png" width="30" height="30" />
+                    <img src="~/Images/hhhhhhhhh.png" width="30" height="30" />
+                    <label class="carousel">
+                        Spice
+                    </label>
+                </a>
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                    <partial name="_LoginPartial" />
+                    <ul class="navbar-nav flex-grow-1">
+
+                        @if (User.IsInRole(SD.ManegerUser))
+                        {
+
+
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    Content Mangment
+                                </a>
+
+                                <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Categories" asp-area="Admin">Categroy</a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="SubCategories" asp-area="Admin">Sub Categroy</a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="MenuItems" asp-area="Admin">Menu Item</a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Coupons" asp-area="Admin">Cupont</a>
+                                    <a class="dropdown-item" asp-action="Index" asp-controller="Users" asp-area="Admin">Users</a>
+                                </div>
+                            </li>
+
+                        }
+                        @if (User.IsInRole(SD.CustmerEndUser) || User.IsInRole(SD.ManegerUser))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-area="Custamr" asp-action="OrdarHistory" asp-controller="Ordars">
+                                    Ordar History
+                                </a>
+                            </li>
+                        }
+
+                        @if (HttpContextAccessor.HttpContext.Session.GetInt32(SD.ShoppingCartCount) == null)
+                        {
+
+
+                            <li class="nav-item">
+                                <a class="text-white" style="text-decoration:none" href="#">
+                                    <i class="fas fa-shopping-cart"></i>&nbsp;(0)
+                                </a>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a asp-action="Index" asp-area="Custamr" asp-controller="Carts" class="text-white" style="text-decoration:none">
+                                    <i class="fas fa-shopping-cart"></i>&nbsp;(@HttpContextAccessor.HttpContext.Session.GetInt32(SD.ShoppingCartCount) )
+                                </a>
+                            </li>
+
+                        }
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+    <div class="container">
+        <main role="main" class="pb-3">
+            @RenderBody()
+        </main>
+    </div>
+
+    <footer class="border-top footer text-white-50 bg-dark">
+        <div class="container">
+            &copy; 2020 - Spice - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <h2>
+                That WebSite Make by Eng-Alaa Hassan Ashour
+                Phone Number - +9720592437455
+            </h2>
+        </div>
+    </footer>
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="https://cdn.tiny.cloud/1/kamw3sutnnnv9llrh54mo8verp6gg5tdl0wvjkkmwvcjty5x/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+    @RenderSection("Scripts", required: false)
+</body>
+</html>

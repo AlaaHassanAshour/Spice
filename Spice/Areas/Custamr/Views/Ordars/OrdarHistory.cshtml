@@ -1,0 +1,133 @@
+﻿@model OrdarListViewModel
+
+<div class="withBachgroud border">
+    <div class="row">
+        <div class="col-6">
+            <h2 class="text-info">Ordar History List</h2>
+        </div>
+     
+        <div class="col-12">
+            @if (Model.ordars.Count() == 0)
+            {
+                <p class="text-danger">no ordar Hostory....</p>
+            }
+            else
+            {
+                <table class="table table-striped border">
+                    <tr class="table-secondary">
+                        <th>
+                            @Html.DisplayNameFor(m => m.ordars[0].OrdarHedar.Id)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ordars[0].OrdarHedar.PickUpName)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ordars[0].OrdarHedar.ApplicationUser.Email)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ordars[0].OrdarHedar.PickUpTime)
+                        </th>
+                        <th>
+                            @Html.DisplayNameFor(m => m.ordars[0].OrdarHedar.OrdarTotal)
+                        </th>
+                        <th>
+                            Item Name
+                        </th>
+                        <th>
+
+                        </th>
+                    </tr>
+                    @foreach (var item in Model.ordars)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(m => item.OrdarHedar.Id)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.OrdarHedar.PickUpName)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.OrdarHedar.ApplicationUser.Email)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.OrdarHedar.PickUpTime)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.OrdarHedar.OrdarTotal)
+                            </td>
+
+                            <td>
+                                @Html.DisplayFor(m => item.OrdarDetails.Count)
+                            </td>
+                            <td style="width:150px">
+                                <button type="submit" class="btn btn-success showDetails" data-id="@item.OrdarHedar.Id" data-toggle="modal">
+                                    <i class="fas fa-list-alt"></i>Details
+                                </button>
+                            </td>
+                        </tr>
+                    }
+                </table>
+
+                @*
+
+            <div page-model="@Model.PagingInfo" page-classes-enabled="true" page-class="btn border"
+                   page-class-normal="btn btn-light" page-class-selected="btn btn-info active" class="btn-group float-right"></div>
+                   <br />*@
+            }
+        </div>
+    </div>
+
+    <div class="modal fade" id="myModal" tabindex="-1"role="dialog"aria-hidden="true" >
+        <div class="modal-dialog-centered modal-dialog"role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-light justify-content-center">
+                   <h5 class="modal-title">Ordar Details</h5>
+                </div>
+                <div class="modal-body justify-content-center"id="myModalContent">
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary"style="width:20%" data-dismiss="modal">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+@section Scripts{ 
+
+<script>
+
+    var URL = '/Custamr/Ordars/GetOrdarDetails';
+
+    $(function () {
+        $(".showDetails").click(function () {
+            var $buttanCliced = $(this);
+            var id = $buttanCliced.attr('data-id');
+            $.ajax({
+                type: "GET",
+                url: URL,
+                contentType: "application/json;charset=utf-8",
+                data: { "id": id },
+                cache: false,
+                dataType: "html",
+                success: function (data) {
+                    $('#myModalContent').html(data);
+                    $('#myModal').modal('show');
+                },
+                error: function () {
+                    alert("Dynamic Conent Load Faild")
+                }
+            });
+
+        });
+    });
+
+</script>
+}

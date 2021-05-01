@@ -1,0 +1,119 @@
+﻿
+@model SubCategoryandCategoryViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+@*<h1>Create</h1>
+
+    <h4>SubCategory</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class ="form-control" asp-items="ViewBag.CategoryId"></select>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+<br />
+<h2 class="text-info">Create Sub Category </h2>
+<br />
+<partial name="_StatusMessage" model="@Model.StutasMessage" />
+<div class="withBachgroud border row">
+    <div class="col-8 border-right">
+        <form asp-action="Create" method="post">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SubCategory.CategoryId" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <select class="form-control" id="ddCategory"   asp-for="SubCategory.CategoryId" asp-items="@(new SelectList(Model.CategoryList,"Id","Name"))"></select>
+                    <span class="text-danger" asp-validation-for="SubCategory.Name"></span>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="SubCategory.Name" class="col-form-label"></label>
+                </div>
+                <div class="col-5">
+                    <input asp-for="SubCategory.Name" class="form-control" />
+                    <span class="text-danger" asp-validation-for="SubCategory.Name"></span>
+                </div>
+            </div>
+            <div class="form-group row">
+                <div class="col-5 offset-3">
+                    <partial name="_cerateBackeToListButtonPartial" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="col-3 offset-1">
+     
+          
+            <p>Exsting Sub Categories : </p>
+
+            <div id="divsubCategoryList">
+
+            </div>
+     
+        
+    </div>
+</div>
+
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+    <script>
+        function updateSubCategoryList() {
+            var selectCategory = document.getElementById("ddCategory").value;
+            $list = $('#divsubCategoryList');
+            $.ajax({
+                url: '/Admin/SubCategories/GetSubCategory/' + selectCategory,
+                type: 'GET',
+                dataType: 'text',
+                success: function (data) {
+                    resulats = JSON.parse(data);
+                    $list.html('');
+                    $list.append('<ul class="list-group">')
+                    for (i in resulats) {
+                        $list.append('<li class="list-group-item">' + resulats[i].text + '</li>')
+                    }
+                    $list.append('</ul>');
+                }
+
+            }
+            );
+        }
+        $(document).ready(function () {
+                updateSubCategoryList();
+
+            });
+        $('#ddCategory').on("change", function () {
+                updateSubCategoryList();
+            });
+
+            
+        
+    </script>
+}
+

@@ -1,0 +1,32 @@
+﻿
+@model OrdarDetailsViewModel
+@{
+    ViewData["Title"] = "Confirm";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="withBachgroud">
+    <div class="row px-3">
+        <div class="col-8">
+            <h2 class="text-info">Ordar Confiremd</h2>
+        </div>
+        <div class="col-4 text-right">
+            <a asp-action="Index" asp-controller="Home" class="btn btn-success">New Ordar</a>
+        </div>
+    </div>
+    @if (Model.OrdarHedar!=null)
+    {
+        <div style="color:maroon" class="p-3">
+            your ordar has been confiemd ! please see the ordar summary bellow
+            <br />
+            Feel Free the contact us id you have any qustion
+        </div>
+
+        <partial name="_indivisualOrdarDetails" model="Model"/>
+    }
+    else
+    {
+        <div class="text-danger">Error.....!plase try Agin</div>
+    }
+</div>
+

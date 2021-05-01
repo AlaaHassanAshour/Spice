@@ -1,0 +1,107 @@
+﻿@model OrdarDetailsViewModel
+<form method="post">
+    <div class="container row border ml-1" style="width:100%; padding:5px;border-radius:10px">
+
+        <br />
+        <input type="hidden" asp-for="OrdarHedar.Id" />
+        <div class="col-12 col-lg-8" style="border-right:1px solid #bbb9b9">
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrdarHedar.PickUpName"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrdarHedar.PickUpName" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrdarHedar.ApplicationUser.Email"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrdarHedar.ApplicationUser.Email" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrdarHedar.PickUpTime"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrdarHedar.PickUpTime" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrdarHedar.PhoneNumber"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrdarHedar.PhoneNumber" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrdarHedar.OrdarTotal"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrdarHedar.OrdarTotal" class="form-control" readonly />
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-3">
+                    <label asp-for="OrdarHedar.Commant"></label>
+                </div>
+                <div class="col-9">
+                    <input asp-for="OrdarHedar.Commant" class="form-control" readonly />
+                </div>
+            </div>
+
+
+        </div>
+
+        <div class="col-12 col-lg-4">
+            <h4 class="d-flex justify-content-between align-content-center mb-3">
+                <span class="text-muted">Ordar Id</span>
+                <span class="badge badge-secondary badge-pill">
+                @Model.OrdarHedar.Id</span>
+            </h4>
+            <ul class="list-group-item">
+                @foreach (var item in Model.OrdarDetails)
+                {
+                    <li class="list-group-item d-flex justify-content-between ">
+                        <div>
+                            <h6 class="my-0">@item.Name</h6>
+                            <small class="text-muted">Quntaty:@item.Count</small>
+                        </div>
+                        <span class="text-muted">@(item.Pric*item.Count)</span>
+                    </li>
+                }
+
+                @if (Model.OrdarHedar.CoupnCode != null)
+                {
+                    <li class="list-group-item d-flex justify-content-between ">
+                        <div class="text-success">
+                            <h6 class="my-0">Promo Code</h6>
+                            <small class="text-muted">@Model.OrdarHedar.CoupnCode</small>
+                        </div>
+                        <span class="text-success">@(Model.OrdarHedar.OrdarTotalOregnal- Model.OrdarHedar.OrdarTotal)</span>
+                    </li>
+
+                }
+                <li class="list-group-item d-flex justify-content-between ">
+                    <span class="text-info">Total (USD)</span>
+                    <strong class="text-info">
+                        @(Math.Round(Model.OrdarHedar.OrdarTotal,2))
+                    </strong>
+                </li>
+
+            </ul>
+            <button type="submit" disabled class="btn btn-info form-control">@Model.OrdarHedar.State</button>
+        </div>
+
+    </div>
+</form>

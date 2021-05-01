@@ -1,0 +1,150 @@
+﻿@model MeunItemViewModel
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*<h1>Edit</h1>
+
+    <h4>MenuItem</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Edit">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <input type="hidden" asp-for="Id" />
+                <div class="form-group">
+                    <label asp-for="Name" class="control-label"></label>
+                    <input asp-for="Name" class="form-control" />
+                    <span asp-validation-for="Name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Decrption" class="control-label"></label>
+                    <input asp-for="Decrption" class="form-control" />
+                    <span asp-validation-for="Decrption" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Price" class="control-label"></label>
+                    <input asp-for="Price" class="form-control" />
+                    <span asp-validation-for="Price" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Imeg" class="control-label"></label>
+                    <input asp-for="Imeg" class="form-control" />
+                    <span asp-validation-for="Imeg" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Spicyness" class="control-label"></label>
+                    <input asp-for="Spicyness" class="form-control" />
+                    <span asp-validation-for="Spicyness" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="CategoryId" class="control-label"></label>
+                    <select asp-for="CategoryId" class="form-control" asp-items="ViewBag.CategoryId"></select>
+                    <span asp-validation-for="CategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="SubCategoryId" class="control-label"></label>
+                    <select asp-for="SubCategoryId" class="form-control" asp-items="ViewBag.SubCategoryId"></select>
+                    <span asp-validation-for="SubCategoryId" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>*@
+
+
+<br />
+<h2 class="text-info"> MenuItem  Delete</h2>
+<br />
+<div class="withBachgroud border row">
+    <form asp-action="Delete" method="post">
+        <input type="hidden" asp-for="MenuItem.Id" />
+        <input type="hidden" asp-for="MenuItem.Imeg" />
+
+        <div class="col-8">
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MenuItem.Name" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="MenuItem.Name" class="form-control " readonly />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MenuItem.Decrption" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <textarea asp-for="MenuItem.Decrption" class="form-control" readonly></textarea>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MenuItem.Price" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <input asp-for="MenuItem.Price" class="form-control" readonly />
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MenuItem.CategoryId" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <select id="ddCategory" asp-for="MenuItem.CategoryId" asp-items="@(new SelectList(Model.CategoriesList,"Id","Name"))" class="form-control" disabled></select>
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MenuItem.SubCategoryId" class="col-form-label"></label>
+
+                </div>
+                <div class="col-8">
+                    <select id="ddSubCategories" asp-for="MenuItem.SubCategoryId" asp-items="@(new SelectList(Model.SubCategoriesList,"Id","Name"))" class="form-control" disabled></select>
+
+                </div>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-4">
+                    <label asp-for="MenuItem.Spicyness" class="col-form-label"></label>
+                </div>
+                <div class="col-8">
+                    <select asp-for="MenuItem.Spicyness" asp-items="@Html.GetEnumSelectList<MenuItem.ESpicy>()" class="form-control" disabled></select>
+                </div>
+            </div>
+
+
+            <div class="form-group row">
+                <div class="col-8 offset-4">
+                    <partial name="_DeleteBackeToListButtonPartial" model="@Model.MenuItem.Id" />
+                </div>
+            </div>
+        </div>
+        <div class="col-3 offset-1">
+            <img src="@Model.MenuItem.Imeg" width="100%" style="border:1 solid #bbb9b9; border-radius:5px" />
+        </div>
+    </form>
+</div>
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+
+}
