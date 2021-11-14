@@ -87,7 +87,7 @@ namespace Spice.Areas.Admin.Controllers
                 string imegPath = @"\Images\default.jpg";
                 var files = HttpContext.Request.Form.Files;
                 if (files.Count > 0)
-                {
+                {   
                     string webRootPath = webHost.WebRootPath;
                     string ImegName = DateTime.Now.ToFileTime().ToString() + Path.GetExtension(files[0].FileName);
                     FileStream fileStream = new FileStream(Path.Combine(webRootPath, "Images", ImegName), FileMode.Create);

@@ -1,7 +1,6 @@
 ﻿@model IndexViweModel
 @{
     ViewData["Title"] = "Index";
- 
 }
 
 <br />
@@ -55,7 +54,7 @@
     @foreach (var category in Model.Categorys)
     {
         var menuItem = Model.MenuItems.Where(m => m.Category.Name.Equals(category.Name));
-
+    
         <div class="row">
 
             @if (menuItem.Count() > 0)

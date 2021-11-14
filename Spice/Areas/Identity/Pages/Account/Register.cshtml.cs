@@ -106,22 +106,10 @@ namespace Spice.Areas.Identity.Pages.Account
                 var result = await _userManager.CreateAsync(user, Input.Password);
                 if (result.Succeeded)
                 {
-                    if (! await _roleManager.RoleExistsAsync(SD.ManegerUser))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.ManegerUser));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(SD.KithenUser))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.KithenUser));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(SD.CustmerEndUser))
-                    {
+                   
                         await _roleManager.CreateAsync(new IdentityRole(SD.CustmerEndUser));
-                    }
-                    if (!await _roleManager.RoleExistsAsync(SD.FrontDiskUser))
-                    {
-                        await _roleManager.CreateAsync(new IdentityRole(SD.FrontDiskUser));
-                    }
+                    
+                
 
 
                     await _userManager.AddToRoleAsync(user, SD.CustmerEndUser);

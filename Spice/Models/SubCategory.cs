@@ -16,11 +16,8 @@ namespace Spice.Models
         public string Name{ get; set; }
 
         [Required, Display(Name = "Category Name")]
-
         public int CategoryId { get; set; }
         [ForeignKey("CategoryId")]
-
         public virtual Category Category { get; set; }
-
     }
 }
